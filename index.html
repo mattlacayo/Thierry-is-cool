@@ -145,10 +145,12 @@
   </div>
 
 <script>
+window.addEventListener("DOMContentLoaded", () => {
   const yesBox = document.getElementById("yesBox");
   const noBox  = document.getElementById("noBox");
   const container = document.getElementById("container");
   const celebration = document.getElementById("celebration");
+  if (!yesBox || !noBox || !container || !celebration) return;
 
   const yesLines = [
     "You def had way more fun than just 'super fun'",
@@ -176,17 +178,18 @@
     "Fine how about this?"
   ];
 
-  let yesIdx = 0;
-  let noIdx = 0;
-  let yesArmedForFinalClick = false;
+  let yesIdx = 0, noIdx = 0;
+  let yesArmed = false, noArmed = false;
   let done = false;
+
+  const canHover = window.matchMedia("(hover: hover)").matches;
 
   function moveElement(el){
     const padding = 12;
     const w = el.offsetWidth || 260;
     const h = el.offsetHeight || 60;
 
-    const maxX = Math.max(padding, window.innerWidth - w - padding);
+    const maxX = Math.max(padding, window.innerWidth  - w - padding);
     const maxY = Math.max(padding, window.innerHeight - h - padding);
 
     const x = Math.floor(Math.random() * maxX);
@@ -225,7 +228,6 @@
     done = true;
 
     buildCelebration();
-
     container.innerHTML = `
       <div class="successWrap">
         <p class="successText">
@@ -235,24 +237,17 @@
     `;
   }
 
-  function yesDodge(e){
-    if (done) return;
-
-    if (yesArmedForFinalClick) return;
-
-    if (e){
-      e.preventDefault();
-      e.stopPropagation();
-    }
+  // advance functions: cycle text + move; arm at the end
+  function advanceYes(){
+    if (done || yesArmed) return;
 
     yesBox.textContent = yesLines[yesIdx];
 
     if (yesIdx === yesLines.length - 1){
-      yesArmedForFinalClick = true;
+      yesArmed = true;
       yesBox.style.position = "absolute";
       yesBox.style.left = "0px";
-      yesBox.style.top = "0px";
-      yesBox.style.cursor = "pointer";
+      yesBox.style.top  = "0px";
       return;
     }
 
@@ -260,67 +255,59 @@
     moveElement(yesBox);
   }
 
-  function yesClick(e){
-    if (done) return;
+  function advanceNo(){
+    if (done || noArmed) return;
 
-    if (!yesArmedForFinalClick){
-      yesDodge(e);
+    noBox.textContent = noLines[noIdx];
+
+    if (noIdx === noLines.length - 1){
+      noArmed = true;
+
+      // Return to the center slot and turn green next to Yes
+      noBox.style.background = "#1d8f3a";
+      noBox.style.position = "absolute";
+      noBox.style.left = "290px";
+      noBox.style.top  = "0px";
       return;
     }
 
-    success();
+    noIdx++;
+    moveElement(noBox);
   }
 
- function noAttempt(e){
-  if (done) return;
-
-  if (e){
-    e.preventDefault();
-    e.stopPropagation();
+  // final click handlers:
+  // mobile: click advances until armed; once armed, next click succeeds
+  function yesFinalClick(){
+    if (done) return;
+    if (yesArmed) success();
+    else advanceYes();
   }
 
-  noBox.textContent = noLines[noIdx];
-
-  if (noIdx === noLines.length - 1){
-
-    // Reset to original layout position
-    noBox.style.position = "absolute";
-    noBox.style.left = "290px";
-    noBox.style.top = "0px";
-
-    // Turn into green Yes-style box
-    noBox.style.background = "#1d8f3a";
-    noBox.style.color = "#ffffff";
-    noBox.textContent = "Okay jk really last one promise.";
-
-    // Small delay makes it feel intentional
-    setTimeout(() => {
-      success();
-    }, 300);
-
-    return;
+  function noFinalClick(){
+    if (done) return;
+    if (noArmed) success();
+    else advanceNo();
   }
 
-  noIdx++;
-  moveElement(noBox);
-}
+  // Desktop hover dodge only if hover-capable, and only while not armed
+  if (canHover){
+    yesBox.addEventListener("mouseenter", () => {
+      if (!yesArmed) advanceYes();
+    });
+    noBox.addEventListener("mouseenter", () => {
+      if (!noArmed) advanceNo();
+    });
+  }
 
-  yesBox.addEventListener("mouseenter", yesDodge);
-  yesBox.addEventListener("pointerdown", yesDodge);
-  yesBox.addEventListener("touchstart", yesDodge, { passive:false });
-  yesBox.addEventListener("mousedown", yesDodge);
-  yesBox.addEventListener("click", yesClick);
-
-  noBox.addEventListener("mouseenter", noAttempt);
-  noBox.addEventListener("pointerdown", noAttempt);
-  noBox.addEventListener("touchstart", noAttempt, { passive:false });
-  noBox.addEventListener("mousedown", noAttempt);
-  noBox.addEventListener("click", noAttempt);
+  // Click always:
+  yesBox.addEventListener("click", yesFinalClick);
+  noBox.addEventListener("click", noFinalClick);
 
   window.addEventListener("resize", () => {
     if (yesBox.style.position === "fixed") moveElement(yesBox);
     if (noBox.style.position === "fixed") moveElement(noBox);
   });
+});
 </script>
 
 </body>
