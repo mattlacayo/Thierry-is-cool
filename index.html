@@ -1,131 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Question</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Question</title>
 
-<style>
-  body{
-    font-family: "Times New Roman", Times, serif;
-    background: #ffffff;
-    color: #000000;
-    margin: 0;
-    height: 100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    overflow:hidden;
-  }
+  <style>
+    body{
+      font-family: "Times New Roman", Times, serif;
+      background: #ffffff;
+      color: #000000;
+      margin: 0;
+      height: 100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+    }
 
-  .container{
-    width: 760px;
-    max-width: calc(100vw - 40px);
-    border: 1px solid #000;
-    padding: 44px;
-    position: relative;
-    background: #ffffff;
-    z-index: 2;
-  }
+    .container{
+      width: 760px;
+      max-width: calc(100vw - 40px);
+      border: 1px solid #000;
+      padding: 44px;
+      position: relative;
+      background: #ffffff;
+      z-index: 2;
+    }
 
-  .question{
-    font-size: 26px;
-    line-height: 1.35;
-    margin: 0;
-    font-weight: normal;
-  }
+    .question{
+      font-size: 26px;
+      line-height: 1.35;
+      margin: 0;
+      font-weight: normal;
+    }
 
-  .boxes{
-    margin-top: 34px;
-    position: relative;
-    height: 70px;
-  }
+    .boxes{
+      margin-top: 34px;
+      position: relative;
+      height: 70px;
+    }
 
-  .box{
-    font-family: "Times New Roman", Times, serif;
-    font-size: 18px;
-    border: 1px solid #000;
-    padding: 16px 18px;
-    width: 260px;
-    text-align: center;
-    cursor: pointer;
-    user-select: none;
-    touch-action: manipulation;
-  }
+    .box{
+      font-family: "Times New Roman", Times, serif;
+      font-size: 18px;
+      border: 1px solid #000;
+      padding: 16px 18px;
+      width: 260px;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+      touch-action: manipulation;
+    }
 
-  #yesBox{
-    background: #1d8f3a;
-    color: #ffffff;
-    position: absolute;
-    left: 0;
-    top: 0;
-  }
+    #yesBox{
+      background: #1d8f3a;
+      color: #ffffff;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
 
-  #noBox{
-    background: #c51f1f;
-    color: #ffffff;
-    position: absolute;
-    left: 290px;
-    top: 0;
-  }
+    #noBox{
+      background: #c51f1f;
+      color: #ffffff;
+      position: absolute;
+      left: 290px;
+      top: 0;
+    }
 
-  .hint{
-    margin-top: 26px;
-    border-top: 1px solid #000;
-    padding-top: 18px;
-    font-size: 16px;
-  }
+    .hint{
+      margin-top: 26px;
+      border-top: 1px solid #000;
+      padding-top: 18px;
+      font-size: 16px;
+    }
 
-  #celebration{
-    display: none;
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 1;
-  }
+    #celebration{
+      display: none;
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
 
-  .spinBox{
-    position: absolute;
-    width: 34px;
-    height: 34px;
-    border: 2px solid #000;
-    background: transparent;
-    opacity: 0.85;
-    animation: spin 900ms linear infinite;
-  }
+    .spinBox{
+      position: absolute;
+      width: 34px;
+      height: 34px;
+      border: 2px solid #000;
+      background: transparent;
+      opacity: 0.85;
+      animation: spin 900ms linear infinite;
+    }
 
-  @keyframes spin{
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
-  }
+    @keyframes spin{
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
 
-  .floatCircle{
-    position: absolute;
-    width: 18px;
-    height: 18px;
-    border: 2px solid #000;
-    border-radius: 999px;
-    opacity: 0.65;
-    animation: drift 2600ms linear infinite;
-  }
+    .floatCircle{
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border: 2px solid #000;
+      border-radius: 999px;
+      opacity: 0.65;
+      animation: drift 2600ms linear infinite;
+    }
 
-  @keyframes drift{
-    0%   { transform: translateY(0px); }
-    50%  { transform: translateY(-22px); }
-    100% { transform: translateY(0px); }
-  }
+    @keyframes drift{
+      0%   { transform: translateY(0px); }
+      50%  { transform: translateY(-22px); }
+      100% { transform: translateY(0px); }
+    }
 
-  .successText{
-    font-size: 28px;
-    line-height: 1.25;
-    font-weight: normal;
-    margin: 0;
-  }
+    .successText{
+      font-size: 28px;
+      line-height: 1.25;
+      font-weight: normal;
+      margin: 0;
+    }
 
-  .successWrap{
-    text-align: center;
-  }
-</style>
+    .successWrap{
+      text-align: center;
+    }
+  </style>
 </head>
 
 <body>
@@ -144,187 +144,173 @@
     <div class="hint" id="hint">Choose wisely.</div>
   </div>
 
-<script>
-window.addEventListener("DOMContentLoaded", () => {
-  const yesBox = document.getElementById("yesBox");
-  const noBox  = document.getElementById("noBox");
-  const container = document.getElementById("container");
-  const celebration = document.getElementById("celebration");
-  if (!yesBox || !noBox || !container || !celebration) return;
+  <script>
+  window.addEventListener("DOMContentLoaded", () => {
+    const yesBox = document.getElementById("yesBox");
+    const noBox  = document.getElementById("noBox");
+    const container = document.getElementById("container");
+    const celebration = document.getElementById("celebration");
+    if (!yesBox || !noBox || !container || !celebration) return;
 
-  const yesLines = [
-    "You def had way more fun than just 'super fun'",
-    "Oop, you were a little slow there",
-    "Damn Thierry tf?",
-    "Is this why ur not scoring more goals?",
-    "Okay last one",
-    "SIKE",
-    "This is how unlocked in I've gotten since you left me.",
-    "Lib is boring btw.",
-    "I'm sitting in a cubicle in a quiet room and ngl the vibe is kinda slay.",
-    "Okay jk really last one promise."
-  ];
+    const yesLines = [
+      "You def had way more fun than just 'super fun'",
+      "Oop, you were a little slow there",
+      "Damn Thierry tf?",
+      "Is this why ur not scoring more goals?",
+      "Okay last one",
+      "SIKE",
+      "This is how unlocked in I've gotten since you left me.",
+      "Lib is boring btw.",
+      "I'm sitting in a cubicle in a quiet room and ngl the vibe is kinda slay.",
+      "Okay jk really last one promise."
+    ];
 
-  const noLines = [
-    "Wait wtf?",
-    "You better not be trying to hit No",
-    "You're playing",
-    "THIERRY HUH",
-    "Oh my fuking god.",
-    "No whatever it's fine",
-    "I'm fine. I get it.",
-    "Okay but fr tho stop playing.",
-    "Green box is what u meant to hit.",
-    "Fine how about this?"
-  ];
+    const noLines = [
+      "Wait wtf?",
+      "You better not be trying to hit No",
+      "You're playing",
+      "THIERRY HUH",
+      "Oh my fuking god.",
+      "No whatever it's fine",
+      "I'm fine. I get it.",
+      "Okay but fr tho stop playing.",
+      "Green box is what u meant to hit.",
+      "Fine how about this?"
+    ];
 
-  let yesIdx = 0, noIdx = 0;
-  let yesArmed = false, noArmed = false;
-  let yesReadyForClick = false, noReadyForClick = false;
-  let done = false;
+    let yesIdx = 0, noIdx = 0;
+    let yesArmed = false, noArmed = false;
+    let done = false;
 
-  const canHover = window.matchMedia("(hover: hover)").matches;
+    const canHover = window.matchMedia("(hover: hover)").matches;
 
-  function moveElement(el){
-    const padding = 12;
-    const w = el.offsetWidth || 260;
-    const h = el.offsetHeight || 60;
+    function moveElement(el){
+      const padding = 12;
+      const w = el.offsetWidth || 260;
+      const h = el.offsetHeight || 60;
 
-    const maxX = Math.max(padding, window.innerWidth  - w - padding);
-    const maxY = Math.max(padding, window.innerHeight - h - padding);
+      const maxX = Math.max(padding, window.innerWidth  - w - padding);
+      const maxY = Math.max(padding, window.innerHeight - h - padding);
 
-    const x = Math.floor(Math.random() * maxX);
-    const y = Math.floor(Math.random() * maxY);
+      const x = Math.floor(Math.random() * maxX);
+      const y = Math.floor(Math.random() * maxY);
 
-    el.style.position = "fixed";
-    el.style.left = x + "px";
-    el.style.top  = y + "px";
-  }
-
-  function buildCelebration(){
-    celebration.innerHTML = "";
-    celebration.style.display = "block";
-
-    for (let i=0; i<20; i++){
-      const b = document.createElement("div");
-      b.className = "spinBox";
-      b.style.left = (Math.random()*100) + "vw";
-      b.style.top  = (Math.random()*100) + "vh";
-      b.style.animationDuration = (600 + Math.random()*1200) + "ms";
-      celebration.appendChild(b);
+      el.style.position = "fixed";
+      el.style.left = x + "px";
+      el.style.top  = y + "px";
     }
 
-    for (let i=0; i<26; i++){
-      const c = document.createElement("div");
-      c.className = "floatCircle";
-      c.style.left = (Math.random()*100) + "vw";
-      c.style.top  = (Math.random()*100) + "vh";
-      c.style.animationDuration = (1800 + Math.random()*2200) + "ms";
-      celebration.appendChild(c);
-    }
-  }
+    function buildCelebration(){
+      celebration.innerHTML = "";
+      celebration.style.display = "block";
 
-  function success(){
-    if (done) return;
-    done = true;
+      for (let i=0; i<20; i++){
+        const b = document.createElement("div");
+        b.className = "spinBox";
+        b.style.left = (Math.random()*100) + "vw";
+        b.style.top  = (Math.random()*100) + "vh";
+        b.style.animationDuration = (600 + Math.random()*1200) + "ms";
+        celebration.appendChild(b);
+      }
 
-    buildCelebration();
-    container.innerHTML = `
-      <div class="successWrap">
-        <p class="successText">
-          WOOOHOOOO! Since you had sooooooo much fun, you can redeem this pass to study with me. or hang out. Valid for a limited time only.
-        </p>
-      </div>
-    `;
-  }
-
-  // advance functions: cycle text + move; arm at the end (never calls success)
-  function advanceYes(){
-    if (done || yesArmed) return;
-
-    yesBox.textContent = yesLines[yesIdx];
-
-    if (yesIdx === yesLines.length - 1){
-      yesArmed = true;
-
-      // bring back to predictable spot
-      yesBox.style.position = "absolute";
-      yesBox.style.left = "0px";
-      yesBox.style.top  = "0px";
-
-      // require a fresh click AFTER arming
-      yesReadyForClick = false;
-      setTimeout(() => { yesReadyForClick = true; }, 0);
-      return;
+      for (let i=0; i<26; i++){
+        const c = document.createElement("div");
+        c.className = "floatCircle";
+        c.style.left = (Math.random()*100) + "vw";
+        c.style.top  = (Math.random()*100) + "vh";
+        c.style.animationDuration = (1800 + Math.random()*2200) + "ms";
+        celebration.appendChild(c);
+      }
     }
 
-    yesIdx++;
-    moveElement(yesBox);
-  }
+    function success(){
+      if (done) return;
+      done = true;
 
-  function advanceNo(){
-    if (done || noArmed) return;
-
-    noBox.textContent = noLines[noIdx];
-
-    if (noIdx === noLines.length - 1){
-      noArmed = true;
-
-      // return to center slot and turn green next to Yes
-      noBox.style.background = "#1d8f3a";
-      noBox.style.color = "#ffffff";
-      noBox.style.position = "absolute";
-      noBox.style.left = "290px";
-      noBox.style.top  = "0px";
-
-      // require a fresh click AFTER arming
-      noReadyForClick = false;
-      setTimeout(() => { noReadyForClick = true; }, 0);
-      return;
+      buildCelebration();
+      container.innerHTML = `
+        <div class="successWrap">
+          <p class="successText">
+            WOOOHOOOO! Since you had sooooooo much fun, you can redeem this pass to study with me. or hang out. Valid for a limited time only.
+          </p>
+        </div>
+      `;
     }
 
-    noIdx++;
-    moveElement(noBox);
-  }
+    // Advance functions NEVER call success.
+    // They only cycle lines and eventually "arm" the final click.
+    function advanceYes(){
+      if (done || yesArmed) return;
 
-  // click handlers: on mobile, clicking advances until armed; when armed, click triggers success
-  function yesFinalClick(){
-    if (done) return;
-    if (yesArmed){
-      if (yesReadyForClick) success();
-      return;
+      yesBox.textContent = yesLines[yesIdx];
+
+      if (yesIdx === yesLines.length - 1){
+        yesArmed = true;
+        yesBox.style.position = "absolute";
+        yesBox.style.left = "0px";
+        yesBox.style.top  = "0px";
+        return;
+      }
+
+      yesIdx++;
+      moveElement(yesBox);
     }
-    advanceYes();
-  }
 
-  function noFinalClick(){
-    if (done) return;
-    if (noArmed){
-      if (noReadyForClick) success();
-      return;
+    function advanceNo(){
+      if (done || noArmed) return;
+
+      noBox.textContent = noLines[noIdx];
+
+      if (noIdx === noLines.length - 1){
+        noArmed = true;
+
+        // Make it green and bring it back next to Yes
+        noBox.style.background = "#1d8f3a";
+        noBox.style.color = "#ffffff";
+        noBox.style.position = "absolute";
+        noBox.style.left = "290px";
+        noBox.style.top  = "0px";
+        return;
+      }
+
+      noIdx++;
+      moveElement(noBox);
     }
-    advanceNo();
-  }
 
-  // Desktop hover dodge only if hover-capable, and only while not armed
-  if (canHover){
-    yesBox.addEventListener("mouseenter", () => {
-      if (!yesArmed) advanceYes();
+    // Final click handlers ONLY succeed when armed
+    function yesFinalClick(){
+      if (done) return;
+      if (yesArmed) success();
+      else advanceYes();
+    }
+
+    function noFinalClick(){
+      if (done) return;
+      if (noArmed) success();
+      else advanceNo();
+    }
+
+    // Desktop: dodge on hover ONLY while not armed
+    if (canHover){
+      yesBox.addEventListener("mouseenter", () => {
+        if (!yesArmed) advanceYes();
+      });
+      noBox.addEventListener("mouseenter", () => {
+        if (!noArmed) advanceNo();
+      });
+    }
+
+    // Click always works:
+    // - on mobile: advances until armed
+    // - when armed: triggers success
+    yesBox.addEventListener("click", yesFinalClick);
+    noBox.addEventListener("click", noFinalClick);
+
+    window.addEventListener("resize", () => {
+      if (yesBox.style.position === "fixed") moveElement(yesBox);
+      if (noBox.style.position === "fixed") moveElement(noBox);
     });
-    noBox.addEventListener("mouseenter", () => {
-      if (!noArmed) advanceNo();
-    });
-  }
-
-  yesBox.addEventListener("click", yesFinalClick);
-  noBox.addEventListener("click", noFinalClick);
-
-  window.addEventListener("resize", () => {
-    if (yesBox.style.position === "fixed") moveElement(yesBox);
-    if (noBox.style.position === "fixed") moveElement(noBox);
   });
-});
-</script>
-
+  </script>
 </body>
 </html>
