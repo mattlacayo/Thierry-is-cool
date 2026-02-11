@@ -271,26 +271,39 @@
     success();
   }
 
-  function noAttempt(e){
-    if (done) return;
+ function noAttempt(e){
+  if (done) return;
 
-    if (e){
-      e.preventDefault();
-      e.stopPropagation();
-    }
-
-    noBox.textContent = noLines[noIdx];
-
-    if (noIdx === noLines.length - 1){
-      noBox.style.background = "#1d8f3a";
-      noBox.textContent = "Okay jk really last one promise.";
-      success();
-      return;
-    }
-
-    noIdx++;
-    moveElement(noBox);
+  if (e){
+    e.preventDefault();
+    e.stopPropagation();
   }
+
+  noBox.textContent = noLines[noIdx];
+
+  if (noIdx === noLines.length - 1){
+
+    // Reset to original layout position
+    noBox.style.position = "absolute";
+    noBox.style.left = "290px";
+    noBox.style.top = "0px";
+
+    // Turn into green Yes-style box
+    noBox.style.background = "#1d8f3a";
+    noBox.style.color = "#ffffff";
+    noBox.textContent = "Okay jk really last one promise.";
+
+    // Small delay makes it feel intentional
+    setTimeout(() => {
+      success();
+    }, 300);
+
+    return;
+  }
+
+  noIdx++;
+  moveElement(noBox);
+}
 
   yesBox.addEventListener("mouseenter", yesDodge);
   yesBox.addEventListener("pointerdown", yesDodge);
