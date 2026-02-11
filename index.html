@@ -180,6 +180,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   let yesIdx = 0, noIdx = 0;
   let yesArmed = false, noArmed = false;
+  let yesReadyForClick = false, noReadyForClick = false;
   let done = false;
 
   const canHover = window.matchMedia("(hover: hover)").matches;
@@ -237,7 +238,7 @@ window.addEventListener("DOMContentLoaded", () => {
     `;
   }
 
-  // advance functions: cycle text + move; arm at the end
+  // advance functions: cycle text + move; arm at the end (never calls success)
   function advanceYes(){
     if (done || yesArmed) return;
 
@@ -245,9 +246,15 @@ window.addEventListener("DOMContentLoaded", () => {
 
     if (yesIdx === yesLines.length - 1){
       yesArmed = true;
+
+      // bring back to predictable spot
       yesBox.style.position = "absolute";
       yesBox.style.left = "0px";
       yesBox.style.top  = "0px";
+
+      // require a fresh click AFTER arming
+      yesReadyForClick = false;
+      setTimeout(() => { yesReadyForClick = true; }, 0);
       return;
     }
 
@@ -263,11 +270,16 @@ window.addEventListener("DOMContentLoaded", () => {
     if (noIdx === noLines.length - 1){
       noArmed = true;
 
-      // Return to the center slot and turn green next to Yes
+      // return to center slot and turn green next to Yes
       noBox.style.background = "#1d8f3a";
+      noBox.style.color = "#ffffff";
       noBox.style.position = "absolute";
       noBox.style.left = "290px";
       noBox.style.top  = "0px";
+
+      // require a fresh click AFTER arming
+      noReadyForClick = false;
+      setTimeout(() => { noReadyForClick = true; }, 0);
       return;
     }
 
@@ -275,18 +287,23 @@ window.addEventListener("DOMContentLoaded", () => {
     moveElement(noBox);
   }
 
-  // final click handlers:
-  // mobile: click advances until armed; once armed, next click succeeds
+  // click handlers: on mobile, clicking advances until armed; when armed, click triggers success
   function yesFinalClick(){
     if (done) return;
-    if (yesArmed) success();
-    else advanceYes();
+    if (yesArmed){
+      if (yesReadyForClick) success();
+      return;
+    }
+    advanceYes();
   }
 
   function noFinalClick(){
     if (done) return;
-    if (noArmed) success();
-    else advanceNo();
+    if (noArmed){
+      if (noReadyForClick) success();
+      return;
+    }
+    advanceNo();
   }
 
   // Desktop hover dodge only if hover-capable, and only while not armed
@@ -299,7 +316,6 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Click always:
   yesBox.addEventListener("click", yesFinalClick);
   noBox.addEventListener("click", noFinalClick);
 
