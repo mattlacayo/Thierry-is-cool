@@ -24,7 +24,7 @@
     border: 1px solid #000;
     padding: 44px;
     position: relative;
-    background: #ffffff; /* keeps text readable */
+    background: #ffffff;
     z-index: 2;
   }
 
@@ -76,13 +76,12 @@
     font-size: 16px;
   }
 
-  /* Celebration overlay (does not obscure center text) */
   #celebration{
     display: none;
     position: fixed;
     inset: 0;
     pointer-events: none;
-    z-index: 1; /* behind the container, above body */
+    z-index: 1;
   }
 
   .spinBox{
@@ -158,9 +157,9 @@
     "Is this why ur not scoring more goals?",
     "Okay last one",
     "SIKE",
-"This is how unlocked in I've gotten since you left me."
-"Lib is boring btw."
-"weEEOoowwWWWW"
+    "This is how unlocked in I've gotten since you left me.",
+    "Lib is boring btw.",
+    "I'm sitting in a cubicle in a quiet room and ngl the vibe is kinda slay.",
     "Okay jk really last one promise."
   ];
 
@@ -230,20 +229,15 @@
     container.innerHTML = `
       <div class="successWrap">
         <p class="successText">
-          WOOOHOOOO! Lmk when ur free. Btw this is how I used my study break (I'm going to crash out on anatomy lab studying).
+          WOOOHOOOO! Since you had sooooooo much fun, you can redeem this pass to study with me. or hang out. Valid for a limited time only.
         </p>
       </div>
     `;
   }
 
-  /* YES behavior */
-
   function yesDodge(e){
     if (done) return;
 
-    // IMPORTANT FIX:
-    // If armed, DO NOTHING here.
-    // Do NOT preventDefault, so mobile click can fire.
     if (yesArmedForFinalClick) return;
 
     if (e){
@@ -255,7 +249,6 @@
 
     if (yesIdx === yesLines.length - 1){
       yesArmedForFinalClick = true;
-
       yesBox.style.position = "absolute";
       yesBox.style.left = "0px";
       yesBox.style.top = "0px";
@@ -278,8 +271,6 @@
     success();
   }
 
-  /* NO behavior */
-
   function noAttempt(e){
     if (done) return;
 
@@ -301,8 +292,6 @@
     moveElement(noBox);
   }
 
-  /* Event wiring */
-
   yesBox.addEventListener("mouseenter", yesDodge);
   yesBox.addEventListener("pointerdown", yesDodge);
   yesBox.addEventListener("touchstart", yesDodge, { passive:false });
@@ -319,7 +308,6 @@
     if (yesBox.style.position === "fixed") moveElement(yesBox);
     if (noBox.style.position === "fixed") moveElement(noBox);
   });
-
 </script>
 
 </body>
